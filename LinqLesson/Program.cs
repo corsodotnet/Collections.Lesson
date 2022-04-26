@@ -17,16 +17,19 @@ namespace LinqLesson
                 new Student() { Id = 5, Name ="Dario",Age = 40}
             };
 
-            var query = from student in studentList group student by student.Age;
+            var query = (from student in studentList group student by student.Age)
+                .OrderBy(x => x.Key);
 
-            foreach (var student in query)
+            foreach (var students in query)
             {
-                Console.WriteLine(student.Key); // gruppo
+                Console.WriteLine(students.Key); // gruppo
 
-                foreach (var s in student)
+                var ordered = students.OrderByDescending(i => i.Name);
+                foreach (var s in ordered)
                 {
-                    Console.WriteLine("{0}", s.Name); //Elementi del gruppo
+                    Console.WriteLine("      {0}", s.Name); //Elementi del gruppo
                 }
+
             }
 
         }
